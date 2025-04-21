@@ -1,9 +1,9 @@
 const express = require('express');
 const validator = require('validator');
-const morgan = require('morgan');
+const logger = require('morgan');
 const PORT=3000;
 const app = express();
-app.use(morgan('dev'));
+app.use(logger('dev'));
 
 app.listen(PORT,()=>{
     console.log(`Listening on port ${PORT}`);
@@ -33,7 +33,6 @@ Functionality: If a valid number is provided, respond with a random whole number
 
 app.get('/roll/:diceNumber',(req,res)=>{
     let number= req.params.diceNumber;
-    
     if (validator.isNumeric(number)){
         let rolledNum = Math.floor(Math.random() * number);
         if (number >= 0){
@@ -63,7 +62,6 @@ const collectibles = [
     { name: 'autographed picture of a dog', price: 10 },
     { name: 'vintage 1970s yogurt SOLD AS-IS', price: 0.99 }
   ];
-
 
 app.get('/collectibles/:index',(req,res)=>{
 let index=req.params.index;
@@ -115,22 +113,21 @@ const shoes = [
     { name: "Fifty-Inch Heels", price: 175, type: "heel" }
 ];
 
-
-
 app.get('/shoes',(req,res)=>{
     const minPrice=parseFloat(req.query.minPrice);
     const maxPrice=parseFloat(req.query.maxPrice);
     const type=req.query.type;
 
     const minPriceList= shoes.filter(shoe => shoe.price > minPrice);
-
 if (minPriceList.length > 0){
    return res.send(minPriceList);
 } 
+
 const maxPriceList = shoes.filter(shoe => shoe.price < maxPrice);
 if (maxPriceList.length > 0){
     return res.send(maxPriceList);
 }
+
 const typeList = shoes.filter(shoe => shoe.type === type);
 if (typeList.length > 0){
     return  res.send(typeList);
