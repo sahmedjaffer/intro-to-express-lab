@@ -10,7 +10,6 @@ app.listen(PORT,()=>{
 })
 
 
-
 /*
 1. Be Polite, Greet the User
 Task: Create a route that responds to URLs like /greetings/<username-parameter>.
